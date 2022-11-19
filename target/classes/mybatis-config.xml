@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="jdbc.properties">
+        <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:XE"/>
+        <property name="username" value="briup"/>
+        <property name="password" value="briup"/>
+    </properties>
+    
+    <settings>
+        <setting name="logPrefix" value="苏州大学:"/>
+    </settings>
+    
+    
+    <typeAliases>
+        <!--第一种给元素起别名，可以指定任意名字-->
+        <!--<typeAlias type="com.briup.bean.Student" alias="Student" />-->
+        <!--第二种起别名方式，按照包中的名字作为原名-->
+        <package name="com.briup.bean"/>
+    </typeAliases>
+    
+    
+    <typeHandlers>
+        <typeHandler handler="com.briup.school.year2021.mybatis.handlers.PhoneTypeHandler"/>
+    </typeHandlers>
+    
+    
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <!-- 第一种方式：写死数据连接的值 -->
+                <!--            <property name="driver" value="oracle.jdbc.driver.OracleDriver" />-->
+                <!--            <property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:XE" />-->
+                <!--            <property name="username" value="briup" />-->
+                <!--            <property name="password" value="briup" />-->
+                
+                <!-- 第二种方式：动态获取数据 -->
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    
+    <mappers>
+        <!--        用 resource 定位 Mapper 在 Classpath 中的路径 -->
+        <!--        <mapper resource="com/briup/mappers/StudentMapper.xml"/>-->
+        <!--        用 URL 定位 Mapper 的系统绝对路径，或者是网络路径 -->
+        <!--        <mapper url="file:///D:/mybatisdemo/app/mappers/StudentMapper.xml"/>-->
+        <!--        用 class名 定位 Mapper 的接口 -->
+        <!--        <mapper class="com.briup.mappers.StudentMapper"/>-->
+        <!--        用 package名 定位 Mapper 所在的包名 -->
+        <package name="com.briup.mappers"/>
+        
+        <!--        增加新的mapper -->
+        <!--        <mapper resource="com/briup/mappers/ResultMapper.xml"/>-->
+        <!--        <mapper resource="com/briup/mappers/MapperOneToOne.xml"/>-->
+    </mappers>
+
+</configuration>
