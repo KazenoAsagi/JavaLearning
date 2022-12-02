@@ -16,15 +16,21 @@ import static com.dlq.designPattern.memento.game.Gamer.Fruit;
 public class Memento {
     protected int money;
     protected List<Fruit> fruitList;
+    protected int currentTurn;
+    
+    protected int getCurrentTurn() {
+        return currentTurn;
+    }
     
     /**
      * 面向内部的构造器
      *
      * @param money 玩家初始持有的金钱
      */
-    protected Memento(int money) {
+    protected Memento(int money, int currentTurn) {
         this.money = money;
         this.fruitList = new ArrayList<>(Fruit.values().length);
+        this.currentTurn = currentTurn;
     }
     
     /**
@@ -61,6 +67,8 @@ public class Memento {
                      .append(getMoney())
                      .append("有这些水果: ")
                      .append(getFruitList().toString())
+                     .append("当前回合是：")
+                     .append(getCurrentTurn())
                      .toString();
         
     }

@@ -17,10 +17,19 @@ public class Gamer {
     private Memento memento;
     private int money;
     private List<Fruit> fruitList = new ArrayList<>();
+    private int currentTurn;
     
-    public Gamer(int money) {
+    public Gamer(int money, StartTurnIs startTurnIs) {
         this.money = money;
-        this.memento = new Memento(money);
+        this.memento = new Memento(money, startTurnIs.ordinal());
+    }
+    
+    public int getCurrentTurn() {
+        return currentTurn;
+    }
+    
+    public void setCurrentTurn(int currentTurn) {
+        this.currentTurn = currentTurn;
     }
     
     @Override
@@ -30,6 +39,8 @@ public class Gamer {
                      .append(money)
                      .append(", 持有水果: ")
                      .append(fruitList)
+                     .append("当前回合是：")
+                     .append(getCurrentTurn())
                      .toString();
     }
     
@@ -38,7 +49,7 @@ public class Gamer {
      * 但只能保存好吃的水果, 其他水果会被丢弃
      */
     public void saveMeNow() {
-        Memento newSave = new Memento(getMoney());
+        Memento newSave = new Memento(getMoney(), getCurrentTurn());
         for (Fruit fruit : fruitList) {
             if (fruit.isJuicy) {
                 newSave.addFruit(fruit);
@@ -55,6 +66,7 @@ public class Gamer {
      */
     public void loadMeNow() {
         this.money = memento.getMoney();
+        this.currentTurn = memento.getCurrentTurn();
         this.fruitList = memento.fruitList;
     }
     

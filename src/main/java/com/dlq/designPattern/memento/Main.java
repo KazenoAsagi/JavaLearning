@@ -1,6 +1,7 @@
 package com.dlq.designPattern.memento;
 
 import com.dlq.designPattern.memento.game.Gamer;
+import com.dlq.designPattern.memento.game.StartTurnIs;
 
 /**
  * @author KznAsg
@@ -16,12 +17,13 @@ public class Main {
     private static final int GAME_TURN = 20;
     
     public static void main(String[] args) throws InterruptedException {
-        Gamer gamer = new Gamer(100);
+        Gamer gamer = new Gamer(100, StartTurnIs.One);
         gamer.saveMeNow();
         
         
-        for (int i = 0; i < GAME_TURN; i++) {
+        for (int i = StartTurnIs.One.ordinal(); i <= GAME_TURN; i++) {
             System.out.println("游戏回合: " + i);
+            gamer.setCurrentTurn(i);
             
             gamer.bet();
             
@@ -36,15 +38,15 @@ public class Main {
                       gamer.getMoneyWhenSaved() - BAD_STATE_MONEY) {
                 System.out.printf("比之前存档足足少了 %d 元, 玩家要读档了\n", BAD_STATE_MONEY);
                 gamer.loadMeNow();
-                
+                i = gamer.getCurrentTurn();
             }
             
             
             System.out.println();
+            Thread.sleep(1000);
             
         }
-        
-        Thread.sleep(2000);
+        System.out.println("游戏结束！");
         
     }
 }
